@@ -5,10 +5,12 @@
       src="../assets/star3.png"
       alt=""
       @click="addFavorite()"
+      :style="favoriteBtnStyle"
       :class="{ favorited }"
     />
     <div class="content-image">
-      <img id="image"
+      <img
+        id="image"
         @mouseover="mouseOver"
         @mouseleave="mouseLeave"
         @click="routeToVideo"
@@ -45,6 +47,13 @@ export default {
       favorited: false,
     };
   },
+  computed: {
+    favoriteBtnStyle() {
+      return {
+        "background-color": this.favorited ? "red" : "gray",
+      };
+    },
+  },
   methods: {
     mouseOver() {
       this.imageUrl = this.video.hoverImage;
@@ -57,7 +66,7 @@ export default {
     },
     addFavorite() {
       this.favorited = !this.favorited;
-      this.$store.dispatch("favoriteStatusChanged",this.video)
+      this.$store.dispatch("favoriteStatusChanged", this.video,);
     },
   },
 };
@@ -83,9 +92,6 @@ export default {
   width: 28px;
   height: 28px;
   cursor: pointer;
-}
-.star.favorited {
-  filter: grayscale(100%);
 }
 .content {
   width: 100%;
